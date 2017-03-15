@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+<title>Profile</title>
+{% endblock %}
+
+{% block content %}
+<br>
+</br>
+<body>
+	<div class="container-fluid">
+		<div class="row content">
+			<div class="col-sm-3 sidenav">
+		<h3>{{request.user.username}}</h3>
+			<ul class="nav nav-pills nav-stacked">
+				<img src="{{ user.userprofile.image }}" style="width:45%;" class="round"><br><br>
+				<h4><b>Bio</b></h4>
+					<p>{{ user.userprofile.bio }}</p>
+				<div class='post-detail-item'>{{ instance.get_markdown|linebreaks }}</div>
+				<li class="active"><a href="#section1">Posts</a></li>
+				{% if user.is_authenticated %}
+				<li><a href="#section1">Drafts</a></li>
+				<li><a href="{% url 'posts:create' %}">Create Post!</a></li>
+				{% endif %}
+		</ul><br>
+			<div class="input-group">
+			<input type="text" class="form-control" placeholder="Search Theories..">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+
+		<div class="col-sm-9">
+			<h4><small>RECENT POSTS</small></h4>
+		</div>
+
+		<!--Posts Made By User-->
+		{% for obj in object_list %}
+		<div class="col-sm-9">
+			<div class="thumbnail">
+				<img src='{{ instance.image.url }}' class='img-responsive' />
+				<hr>
+				<h2><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a></h2>
+				<h5><span class="glyphicon glyphicon-time"></span> {{ obj.publish }}.</h5>
+				{{ obj.get_markdown|truncatechars_html:120 }}
+				<br><br>
+				<p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a></p>
+			</div>
+		</div>
+		{% endfor %}
+
+		<!--Page Number For Posts-->
+		<div class="pagination">
+			<span class="step-links">
+				{% if object_list.has_previous %}
+					<a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+				{% endif %}
+
+				{% if object_list.has_next %}
+					<a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+				{% endif %}
+			</span>
+		</div>
+</body>
+{% endblock %}
