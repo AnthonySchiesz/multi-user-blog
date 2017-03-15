@@ -1,0 +1,85 @@
+<!--DOCTYPE-->
+<html>
+    <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+    <title>Base</title>
+    {% endblock %}
+    </head>
+    <body>
+        <br>
+        <!-- Navigation -->
+        <div class="container">
+            <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header page-scroll">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            Menu <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'posts:list' %}">Theorist</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        {% if user.is_authenticated %}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="{% url 'posts:list' %}">Posts</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'accounts:edit_profile' %}">Edit Profile</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'accounts:view_profile' %}">Profile</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'accounts:logout' %}">Log Out</a>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="{% url 'accounts:reset_password' %}">Reset Password</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="{% url 'accounts:reset_password' %}">Reset Password</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'accounts:login' %}">Log In</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'accounts:register' %}">Sign Up</a>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container -->
+            </nav>
+        </div>
+        <div>
+        {% block content %}{% endblock %}
+        </div>
+
+<!-- Latest compiled minified jQuery -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+$(".comment-reply-btn").click(function(event){
+    event.preventDefault():
+    $(this).parent().next(".comment-reply").fadeToggle();
+})
+</script>
+
+    </body>
+</html>
