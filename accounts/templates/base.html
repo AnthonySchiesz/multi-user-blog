@@ -1,3 +1,4 @@
+{% load static %}
 <!--DOCTYPE-->
 <html>
 	<head>
@@ -14,36 +15,47 @@
 		<div class="container">
 			<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
 				<div class="container-fluid">
-					<!-- Brand and toggle get grouped for better mobile display -->
+					<!-- Brand display -->
 					<div class="navbar-header page-scroll">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 							<span class="sr-only">Toggle navigation</span>
 							Menu <i class="fa fa-bars"></i>
 						</button>
-						<a class="navbar-brand" href="{% url 'posts:list' %}">Theorist</a>
+						<a class="navbar-brand" href="{% url 'posts:list' %}">Blog</a>
 					</div>
 
-					<!-- Collect the nav links, forms, and other content for toggling -->
+					<!-- Navigation Items -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						{% if user.is_authenticated %}
 						<ul class="nav navbar-nav navbar-right">
 							<li>
 								<a href="{% url 'posts:list' %}">Posts</a>
 							</li>
-							<li>
-								<a href="{% url 'accounts:edit_profile' %}">Edit Profile</a>
-							</li>
-							<li>
-								<a href="{% url 'accounts:view_profile' %}">Profile</a>
-							</li>
-							<li>
-								<a href="{% url 'accounts:logout' %}">Log Out</a>
+							<li class="dropdown">
+								<a id="dLabel" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								Profile 
+								<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dLabel">
+									<li>
+										<a href="{% url 'accounts:view_profile' %}">Profile</a>
+									</li>
+									<li>
+										<a href="{% url 'accounts:edit_profile' %}">Edit Profile</a>
+									</li>
+									<li>
+										<a href="{% url 'accounts:change_password' %}">Change Password</a>
+									</li>
+									<li>
+										<a href="{% url 'accounts:logout' %}">Log Out</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 						{% else %}
 						<ul class="nav navbar-nav">
 							<li>
-								<a href="{% url 'accounts:reset_password' %}">Reset Password</a>
+								<a href="{% url 'accounts:reset_password' %}">About</a>
 							</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -68,18 +80,11 @@
 		<h1>Base</h1>
 		{% endblock %}
 
-<!-- Latest compiled minified jQuery -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script>
-$(".comment-reply-btn").click(function(event){
-    event.preventDefault():
-    $(this).parent().next(".comment-reply").fadeToggle();
-})
-</script>
-
 	</body>
+	<!-- Latest compiled minified jQuery -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </html>
