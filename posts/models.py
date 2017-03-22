@@ -29,6 +29,7 @@ class Post(models.Model):
 		blank=True, 
 		width_field="width_field", 
 		height_field="height_field")
+	likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='post_likes')
 	height_field = models.IntegerField(default=0)
 	width_field = models.IntegerField(default=0)
 	content = models.TextField()
@@ -36,7 +37,6 @@ class Post(models.Model):
 	publish = models.DateField(auto_now=True, auto_now_add=False)
 	updated = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
 	timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
-	likes = models.IntegerField(default=0)
 
 	objects = PostManager()
 
@@ -49,6 +49,15 @@ class Post(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"slug": self.slug})
+
+	#def get_api_url(self):
+		#return reverse("posts-api:detail", kwargs={"slug": self.slug})
+
+	def get_like_url(self):
+		return reverse("posts:like-toggle", kwargs={"slug": self.slug})
+
+	def get_api_like_url(self):
+		return reverse("posts:like-api-toggle", kwargs={"slug": self.slug})
 
 	class Meta:
 		ordering = ["-timestamp", "-updated"]
