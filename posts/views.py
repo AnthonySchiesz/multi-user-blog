@@ -7,6 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import RedirectView
 from django.utils import timezone
 
 from comments.forms import CommentForm
@@ -46,7 +47,7 @@ def list(request): #list itmes
 		"title": "List",
 		"today": today,
 	}
-	return render(request, "posts.html", context)
+	return render(request, 'posts.html', context)
 
 def create(request):
 	if not request.user.is_authenticated():
@@ -65,7 +66,7 @@ def create(request):
 	context = {
 		"form": form,
 	}
-	return render(request, "post_form.html", context)
+	return render(request, 'post_form.html', context)
 
 def detail(request, slug=None): #retrieve
 	instance = get_object_or_404(Post, slug=slug)
@@ -112,19 +113,50 @@ def detail(request, slug=None): #retrieve
 		"comments": comments,
 		"comment_form":form,
 	}
-	return render(request, "post_detail.html", context)
+	return render(request, 'post_detail.html', context)
 
-def like_post(self, request, slug=None):
-	slug = self.kwargs.get("slug")
-	obj = get_object_or_404(Post, slug=slug)
-	url = obj.get_absolute_url()
-	user = self.request.user
-	if user.is_authenticated():
-		if user in obj.likes.all():
-			obj.likes.remove(user)
-		else:
-			obj.likes.add(user)
-	return url_
+class PostLikeToggle(RedirectView):
+	def get_redirect_url(self, *args, **kwargs):
+		slug = self.kwargs.get("slug")
+		print(slug)
+		obj = get_object_or_404(Post, slug=slug)
+		url_ = obj.get_absolute_url()
+		user = self.request.user
+		if user.is_authenticated():
+			if user in obj.likes.all():
+				obj.likes.remove(user)
+			else:
+				obj.likes.add(user)
+		return url_
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+
+class PostLikeAPIToggle(APIView):
+	authentication_classes = (authentication.SessionAuthentication,)
+	permission_classes = (permissions.IsAuthenticated,)
+
+	def get(self, request, slug=None, format=None):
+		#slug = self.kwargs.get("slug")
+		obj = get_object_or_404(Post, slug=slug)
+		url_ = obj.get_absolute_url()
+		user = self.request.user
+		updated = False
+		liked = False
+		if user.is_authenticated():
+			if user in obj.likes.all():
+				liked = False
+				obj.likes.remove(user)
+			else:
+				liked = True
+				obj.likes.add(user)
+			updated = True
+		data = {
+			"updated": updated,
+			"liked": liked
+		}
+		return Response(data)
 
 def update(request, slug=None):
 	if not request.user.is_staff or not request.user.is_superuser:
@@ -142,7 +174,7 @@ def update(request, slug=None):
 		"instance": instance,
 		"form":form,
 	}
-	return render(request, "post_form.html", context)
+	return render(request, 'post_form.html', context)
 
 def delete(request, slug=None):
 	if not request.user.is_staff or not request.user.is_superuser:
