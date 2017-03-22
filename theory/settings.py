@@ -37,13 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #Local Apps
     'accounts',
     'posts',
     'comments',
+    #3rd Party
     'crispy_forms',
     'markdown_deux',
     'pagedown',
+    'rest_framework',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,16 +130,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'theory/static')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'theory/media')
 
-LOGIN_REDIRECT_URL = '/posts/'
+LOGIN_REDIRECT_URL = '/account/profile/'
 
 LOGIN_URL = '/account/login/'
 
 LOGIN_EXEMPT_URLS = (
+    r'^$',
+    r'^(?P<slug>[-\w]+)/$',
     r'^account/logout/$',
     r'^account/signup/$',
     r'^account/reset-password/$',
