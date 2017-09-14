@@ -1,7 +1,17 @@
 # multi-user-blog
-
-Fresh Tomatoes Movie Trailer Website
 ====================================
+## Instructions
+1. Download/clone the project repo.
+2. Launch index.html in your browser.
+
+## Stack Utilized
+1. Javascript
+2. AJAX
+3. KnockoutJS
+4. HTML5/CSS
+
+
+
 #### Udacity- Project 1
 
 Fresh Tomatoes is a movie trailer website where movie trailers and posters are available for entertainment.
@@ -18,26 +28,16 @@ https://www.python.org/downloads/
   * Mac
   http://www.macworld.co.uk/how-to/mac/coding-with-python-on-mac-3635912/
 
-After Python is successfully installed, open your IDLE and copy code from each file.
-Copy the code from files provided and save as oriongally titled;
+## Instructions
+1. After Python is successfully installed, open your IDLE and copy code from each file. Download/clone the project repo.
+2. Launch index.html in your browser.
 
-```
-media.py
-
-fresh_tomatoes.py
-
-entertainment_center.py
-```
-
-## What's included
-
-There are three python text documents. These documents provide the structure and fucntionality for the website.
-
-
-## Running documentation locally
-1. Open the fresh_tomatoes.py, media.py and entertainment_center.py. 
-2. On the entertainment_center.py, click on 'Run' then 'Run Module'.
-3. The website will load on your webbrowser.
+## Stack Utilized
+1. Javascript
+2. AJAX
+3. Django
+4. Rest API
+5. HTML5/CSS
 
 ## Versioning
 
