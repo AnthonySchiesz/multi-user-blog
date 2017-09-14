@@ -1,5 +1,5 @@
 # multi-user-blog
-====================================
+
 ## Instructions
 1. Download/clone the project repo.
 2. Launch index.html in your browser.
