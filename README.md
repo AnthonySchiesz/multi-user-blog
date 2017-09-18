@@ -4,24 +4,11 @@
 1. Download/clone the project repo.
 2. Launch index.html in your browser.
 
-## Stack Utilized
-1. Javascript
-2. AJAX
-3. KnockoutJS
-4. HTML5/CSS
-
-
-
-#### Udacity- Project 1
-
-Fresh Tomatoes is a movie trailer website where movie trailers and posters are available for entertainment.
-
 ## Prerequisite
 1. Download Python
 https://www.python.org/downloads/
 
 ## Quickstart
-
 1. Install Python
   * Windows
   http://www.howtogeek.com/197947/how-to-install-python-on-windows/
